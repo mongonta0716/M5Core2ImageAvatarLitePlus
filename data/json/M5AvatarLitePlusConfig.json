@@ -1,0 +1,266 @@
+{
+    "expression": [
+        "normal",
+        "laugh",
+        "cry",
+        "sleepy"
+    ],
+
+    "sprite_info": {
+        "psram": "true",
+        "color_depth": 16,
+        "swap_bytes": 0
+    },
+    "color_info": {
+        "skin"  : "0xFF5B00",
+        "eye_white" : "0xFFFFFF",
+        "transparent"    : "0x00FF00"
+    },
+    "fixed_parts": [
+        {
+            "parts": "body",
+            "x": 0,
+            "y": 0,
+            "w": 320,
+            "h": 240,
+            "filename": "/bmp_kaomoji/head.bmp"
+        }
+    ],
+    "mouth": [
+        {
+            "normal": {
+                "x": 160,
+                "y": 190,
+                "w": 72,
+                "h": 72,
+                "filename": {
+                    "open": "/bmp_kaomoji/mouth_op_normal.bmp",
+                    "close": "/bmp_kaomoji/mouth_cl_normal.bmp"
+                },
+                "minScaleX": 1.0,
+                "maxScaleX": 1.0,
+                "minScaleY": 0.3,
+                "maxScaleY": 1.0
+            }
+        },
+        {
+            "laugh": {
+                "x": 160,
+                "y": 190,
+                "w": 72,
+                "h": 72,
+                "filename": {
+                    "open": "/bmp_kaomoji/mouth_op_laugh.bmp",
+                    "close": "/bmp_kaomoji/mouth_cl_normal.bmp"
+                },
+                "minScaleX": 1.0,
+                "maxScaleX": 1.0,
+                "minScaleY": 0.3,
+                "maxScaleY": 1.0
+            }
+        },
+        {
+            "cry": {
+                "x": 160,
+                "y": 190,
+                "w": 72,
+                "h": 72,
+                "filename": {
+                    "open": "/bmp_kaomoji/mouth_op_cry.bmp",
+                    "close": "/bmp_kaomoji/mouth_cl_cry.bmp"
+                },
+                "minScaleX": 1.0,
+                "maxScaleX": 1.0,
+                "minScaleY": 0.3,
+                "maxScaleY": 1.0
+            }
+        },
+        {
+            "sleepy": {
+                "x": 160,
+                "y": 190,
+                "w": 72,
+                "h": 72,
+                "filename": {
+                    "open": "/bmp_kaomoji/mouth_op_sleepy.bmp",
+                    "close": "/bmp_kaomoji/mouth_cl_normal.bmp"
+                },
+                "minScaleX": 1.0,
+                "maxScaleX": 1.0,
+                "minScaleY": 0.3,
+                "maxScaleY": 1.0
+            }
+        }
+    ],
+    "eye_r": [
+        {
+            "normal": {
+                "x": 80,
+                "y": 120,
+                "w": 72,
+                "h": 72,
+                "filename": {
+                    "open": "/bmp_kaomoji/eye_r_op_normal.bmp",
+                    "close": "/bmp_kaomoji/eye_r_cl_normal.bmp"
+                },
+                "minScaleX": 1.0,
+                "maxScaleX": 1.0,
+                "minScaleY": 0.3,
+                "maxScaleY": 1.0
+            }
+        },
+        {
+            "laugh": {
+                    "x": 80,
+                    "y": 120,
+                    "w": 72,
+                    "h": 72,
+                    "filename": {
+                        "open": "/bmp_kaomoji/eye_r_op_laugh.bmp",
+                        "close": "/bmp_kaomoji/eye_r_cl_laugh.bmp"
+                    },
+                    "minScaleX": 1.0,
+                    "maxScaleX": 1.0,
+                    "minScaleY": 0.3,
+                    "maxScaleY": 1.0
+            }
+       },
+       {
+            "cry": {
+                    "x": 80,
+                    "y": 120,
+                    "w": 72,
+                    "h": 72,
+                    "filename": {
+                        "open": "/bmp_kaomoji/eye_r_op_cry.bmp",
+                        "close": "/bmp_kaomoji/eye_r_cl_cry.bmp"
+                    },
+                    "minScaleX": 1.0,
+                    "maxScaleX": 1.0,
+                    "minScaleY": 0.3,
+                    "maxScaleY": 1.0
+            }
+        },
+       {
+            "sleepy": {
+                    "x": 80,
+                    "y": 120,
+                    "w": 72,
+                    "h": 72,
+                    "filename": {
+                        "open": "/bmp_kaomoji/eye_r_op_sleepy.bmp",
+                        "close": "/bmp_kaomoji/eye_r_cl_normal.bmp"
+                    },
+                    "minScaleX": 1.0,
+                    "maxScaleX": 1.0,
+                    "minScaleY": 0.3,
+                    "maxScaleY": 1.0
+            }
+        }
+    ],
+    "eye_l": [
+        {
+            "normal": {
+                "x": 240,
+                "y": 120,
+                "w": 72,
+                "h": 72,
+                "filename": {
+                    "open": "/bmp_kaomoji/eye_r_op_normal.bmp",
+                    "close": "/bmp_kaomoji/eye_r_cl_normal.bmp"
+                },
+                "minScaleX": 1.0,
+                "maxScaleX": 1.0,
+                "minScaleY": 0.3,
+                "maxScaleY": 1.0
+            }
+        },
+        {
+            "laugh": {
+                "x": 240,
+                "y": 120,
+                "w": 72,
+                "h": 72,
+                "filename": {
+                    "open": "/bmp_kaomoji/eye_r_op_laugh.bmp",
+                    "close": "/bmp_kaomoji/eye_l_cl_laugh.bmp"
+                },
+                "minScaleX": 1.0,
+                "maxScaleX": 1.0,
+                "minScaleY": 0.3,
+                "maxScaleY": 1.0
+
+            }
+       },
+        {
+            "cry": {
+                "x": 240,
+                "y": 120,
+                "w": 72,
+                "h": 72,
+                "filename": {
+                    "open": "/bmp_kaomoji/eye_r_op_cry.bmp",
+                    "close": "/bmp_kaomoji/eye_r_cl_cry.bmp"
+                },
+                "minScaleX": 1.0,
+                "maxScaleX": 1.0,
+                "minScaleY": 0.3,
+                "maxScaleY": 1.0
+            }
+        },
+        {
+            "sleepy": {
+                "x": 240,
+                "y": 120,
+                "w": 72,
+                "h": 72,
+                "filename": {
+                    "open": "/bmp_kaomoji/eye_r_op_sleepy.bmp",
+                    "close": "/bmp_kaomoji/eye_r_cl_normal.bmp"
+                },
+                "minScaleX": 1.0,
+                "maxScaleX": 1.0,
+                "minScaleY": 0.3,
+                "maxScaleY": 1.0
+            }
+        }
+    ],
+    "init_param": [
+        {
+            "normal": {
+                "eye_l_ratio": 0.0,
+                "eye_r_ratio": 0.0,
+                "mouth_ratio": 0.0,
+                "angle": 0.0,
+                "breath": 0
+            }
+        },
+        {
+            "laugh": {
+                "eye_l_ratio": 0.0,
+                "eye_r_ratio": 0.0,
+                "mouth_ratio": 0.0,
+                "angle": 0.0,
+                "breath": 0
+            }
+        },
+        {
+            "cry": {
+                "eye_l_ratio": 0.0,
+                "eye_r_ratio": 0.0,
+                "mouth_ratio": 0.0,
+                "angle": 0.0,
+                "breath": 0
+            }
+        },
+        {
+            "sleepy": {
+                "eye_l_ratio": 0.0,
+                "eye_r_ratio": 0.0,
+                "mouth_ratio": 0.0,
+                "angle": 0.0,
+                "breath": 0
+            }
+        }
+    ]
+}

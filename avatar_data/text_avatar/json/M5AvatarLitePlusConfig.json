@@ -1,0 +1,208 @@
+{
+    "expression": [
+        "normal",
+        "m5",
+        "angry"
+    ],
+
+    "sprite_info": {
+        "psram": "true",
+        "color_depth": 16,
+        "swap_bytes": 0
+    },
+    "color_info": {
+        "skin"  : "0xFF5B00",
+        "eye_white" : "0xFFFFFF",
+        "transparent"    : "0x00FF00"
+    },
+    "fixed_parts": [
+        {
+            "parts": "body",
+            "x": 0,
+            "y": 0,
+            "w": 320,
+            "h": 240,
+            "filename": "/bmp_textavatar/head.bmp"
+        }
+    ],
+    "mouth": [
+        {
+            "normal": {
+                "x": 160,
+                "y": 190,
+                "w": 88,
+                "h": 64,
+                "filename": {
+                    "open": "/bmp_textavatar/mouth_op_normal.bmp",
+                    "close": "/bmp_textavatar/mouth_cl_normal.bmp"
+                },
+                "minScaleX": 1.0,
+                "maxScaleX": 1.0,
+                "minScaleY": 0.3,
+                "maxScaleY": 1.0
+            }
+        },
+        {
+            "m5": {
+                "x": 160,
+                "y": 190,
+                "w": 88,
+                "h": 64,
+                "filename": {
+                    "open": "/bmp_textavatar/mouth_op_m5.bmp",
+                    "close": "/bmp_textavatar/mouth_cl_m5.bmp"
+                },
+                "minScaleX": 1.0,
+                "maxScaleX": 1.0,
+                "minScaleY": 0.3,
+                "maxScaleY": 1.0
+            }
+        },
+        {
+            "angry": {
+                "x": 160,
+                "y": 190,
+                "w": 88,
+                "h": 64,
+                "filename": {
+                    "open": "/bmp_textavatar/mouth_op_angry.bmp",
+                    "close": "/bmp_textavatar/mouth_cl_normal.bmp"
+                },
+                "minScaleX": 1.0,
+                "maxScaleX": 1.0,
+                "minScaleY": 0.3,
+                "maxScaleY": 1.0
+            }
+        }
+    ],
+    "eye_r": [
+        {
+            "normal": {
+                "x": 80,
+                "y": 120,
+                "w": 102,
+                "h": 84,
+                "filename": {
+                    "open": "/bmp_textavatar/eye_r_op_normal.bmp",
+                    "close": "/bmp_textavatar/eye_r_cl_normal.bmp"
+                },
+                "minScaleX": 1.0,
+                "maxScaleX": 1.0,
+                "minScaleY": 0.3,
+                "maxScaleY": 1.0
+            }
+        },
+        {
+            "m5": {
+                    "x": 80,
+                    "y": 120,
+                    "w": 60,
+                    "h": 60,
+                    "filename": {
+                        "open": "/bmp_textavatar/eye_r_op_m5.bmp",
+                        "close": "/bmp_textavatar/eye_r_cl_m5.bmp"
+                    },
+                    "minScaleX": 1.0,
+                    "maxScaleX": 1.0,
+                    "minScaleY": 0.3,
+                    "maxScaleY": 1.0
+            }
+       },
+       {
+            "angry": {
+                    "x": 130,
+                    "y": 120,
+                    "w": 102,
+                    "h": 84,
+                    "filename": {
+                        "open": "/bmp_textavatar/eye_r_op_normal.bmp",
+                        "close": "/bmp_textavatar/eye_r_cl_normal.bmp"
+                    },
+                    "minScaleX": 1.0,
+                    "maxScaleX": 1.0,
+                    "minScaleY": 0.3,
+                    "maxScaleY": 1.0
+            }
+        }
+    ],
+    "eye_l": [
+        {
+            "normal": {
+                "x": 240,
+                "y": 120,
+                "w": 102,
+                "h": 84,
+                "filename": {
+                    "open": "/bmp_textavatar/eye_l_op_normal.bmp",
+                    "close": "/bmp_textavatar/eye_l_cl_normal.bmp"
+                },
+                "minScaleX": 1.0,
+                "maxScaleX": 1.0,
+                "minScaleY": 0.3,
+                "maxScaleY": 1.0
+            }
+        },
+        {
+            "m5": {
+                "x": 240,
+                "y": 120,
+                "w": 60,
+                "h": 60,
+                "filename": {
+                    "open": "/bmp_textavatar/eye_l_op_m5.bmp",
+                    "close": "/bmp_textavatar/eye_l_cl_m5.bmp"
+                },
+                "minScaleX": 1.0,
+                "maxScaleX": 1.0,
+                "minScaleY": 0.3,
+                "maxScaleY": 1.0
+
+            }
+       },
+        {
+            "angry": {
+                "x": 130,
+                "y": 190,
+                "w": 102,
+                "h": 84,
+                "filename": {
+                    "open": "/bmp_textavatar/eye_l_op_normal.bmp",
+                    "close": "/bmp_textavatar/eye_l_cl_normal.bmp"
+                },
+                "minScaleX": 1.0,
+                "maxScaleX": 1.0,
+                "minScaleY": 0.3,
+                "maxScaleY": 1.0
+            }
+        }
+    ],
+    "init_param": [
+        {
+            "normal": {
+                "eye_l_ratio": 0.0,
+                "eye_r_ratio": 0.0,
+                "mouth_ratio": 0.0,
+                "angle": 0.0,
+                "breath": 0
+            }
+        },
+        {
+            "sad": {
+                "eye_l_ratio": 0.0,
+                "eye_r_ratio": 0.0,
+                "mouth_ratio": 0.0,
+                "angle": 0.0,
+                "breath": 0
+            }
+        },
+        {
+            "angry": {
+                "eye_l_ratio": 0.0,
+                "eye_r_ratio": 0.0,
+                "mouth_ratio": 0.0,
+                "angle": 0.0,
+                "breath": 0
+            }
+        }
+    ]
+}
