@@ -2,7 +2,7 @@
 #define _IMAGEAVATAR_SERVO_CONFIG_H_
 
 #include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
-#include <ESP32-Chimera-Core.h>
+#include <M5Unified.h>
 
 #define AXIS_NUMBER 2   // number of ServoAxis
 
@@ -12,6 +12,7 @@ typedef struct ServoInitial {
     int position_center;    // servo center degree
     int position_upper;     // servo upper limit degree
     int position_lower;     // servo lower degree
+    int offset;             // offset of servo(value from -90 to 90)
 } servo_initial_s;
 
 class ImageAvatarServoConfig {

@@ -2,8 +2,7 @@
 #define _IMAGEAVATARCONFIG_H_
 
 #include <ArduinoJson.h> // https://github.com/bblanchon/ArduinoJson
-#include <ESP32-Chimera-Core.h>
-
+#include <M5Unified.h>
 #define RIGHT true
 #define LEFT  false
 
@@ -94,6 +93,7 @@ class ImageAvatarConfig {
         params_eye_s getEyeRightParameters(uint8_t expression);
         params_eye_s getEyeLeftParameters(uint8_t expression);
         move_param_s getMoveParameters(uint8_t expression);
+        uint8_t getExpressionMax() { return _max_expresssion; }
 
 };
 #endif

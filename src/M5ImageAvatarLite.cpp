@@ -1,5 +1,54 @@
 #include "M5ImageAvatarLite.h"
 
+namespace m5imageavatar {
+
+
+DriveContext::DriveContext(ImageAvatarLite *avatar) : avatar{ avatar } {}
+ImageAvatarLite *DriveContext::getAvatar() { return avatar; }
+
+TaskHandle_t drawTaskHandle;
+TaskHandle_t blinkTaskHandle;
+TaskHandle_t breathTaskHandle;
+
+
+void drawLoop(void *args) {
+
+    DriveContext *ctx = reinterpret_cast<DriveContext *>(args);
+    ImageAvatarLite *avatar = ctx->getAvatar();
+    for(;;) {
+        avatar->drawTest();
+        vTaskDelay(10/portTICK_PERIOD_MS);
+    }
+}
+
+void breath(void *args) {
+    DriveContext *ctx = reinterpret_cast<DriveContext *>(args);
+    ImageAvatarLite *avatar = ctx->getAvatar();
+    uint32_t c = 0;
+    for(;;) {
+        c = c + 1 % 100;
+        float f = sin(c) * 2;
+        avatar->setBreath(f);
+        vTaskDelay(1000/portTICK_PERIOD_MS);
+    }
+}
+void blink(void *args) {
+    DriveContext *ctx = reinterpret_cast<DriveContext *>(args);
+    ImageAvatarLite *avatar = ctx->getAvatar();
+    for(;;) {
+        // まぶたの動きをリアルにしたいのでfor文を使用
+        for(float f=0.0; f<=1; f=f+0.1) {
+            avatar->setBlink(f);
+            delay(10/portTICK_PERIOD_MS);
+        }
+        vTaskDelay(2000 + 100 * random(20));
+        for(float f=1.0; f>=0; f=f-0.1) {
+            avatar->setBlink(f);
+            vTaskDelay(10/portTICK_PERIOD_MS);
+        }
+        vTaskDelay(300 + 10 * random(20));
+    }
+}
 
 ImageAvatarLite::ImageAvatarLite(fs::FS& json_fs, fs::FS& bmp_fs) {
     _expression = 0;
@@ -23,22 +72,22 @@ lgfx::rgb565_t ImageAvatarLite::convertColorCode(uint32_t code) {
     return lgfx::color565(r, g, b);
 }
 
-void ImageAvatarLite::init(LGFX *gfx, const char* filename, bool is_change,
+void ImageAvatarLite::init(M5GFX *gfx, const char* filename, bool is_change,
                            uint8_t expression) {
     loadConfig(*_json_fs, filename);
     this->_gfx = gfx;
     this->_filename = filename;
-    _lcd_sp      = new LGFX_Sprite(_gfx);
-    _head_sp     = new LGFX_Sprite(_lcd_sp);
-    _mouth_sp    = new LGFX_Sprite(_lcd_sp);
-    _mouth_op_sp = new LGFX_Sprite(_lcd_sp);
-    _mouth_cl_sp = new LGFX_Sprite(_lcd_sp);
-    _eye_r_sp    = new LGFX_Sprite(_lcd_sp);
-    _eye_r_op_sp   = new LGFX_Sprite(_lcd_sp);
-    _eye_r_cl_sp   = new LGFX_Sprite(_lcd_sp);
-    _eye_l_sp    = new LGFX_Sprite(_lcd_sp);
-    _eye_l_op_sp   = new LGFX_Sprite(_lcd_sp);
-    _eye_l_cl_sp   = new LGFX_Sprite(_lcd_sp);
+    _lcd_sp      = new M5Canvas(_gfx);
+    _head_sp     = new M5Canvas(_lcd_sp);
+    _mouth_sp    = new M5Canvas(_lcd_sp);
+    _mouth_op_sp = new M5Canvas(_lcd_sp);
+    _mouth_cl_sp = new M5Canvas(_lcd_sp);
+    _eye_r_sp    = new M5Canvas(_lcd_sp);
+    _eye_r_op_sp = new M5Canvas(_lcd_sp);
+    _eye_r_cl_sp = new M5Canvas(_lcd_sp);
+    _eye_l_sp    = new M5Canvas(_lcd_sp);
+    _eye_l_op_sp = new M5Canvas(_lcd_sp);
+    _eye_l_cl_sp = new M5Canvas(_lcd_sp);
     _expression = expression;
     _mv = _config.getMoveParameters(_expression);
     initSprites(is_change);
@@ -52,7 +101,7 @@ void ImageAvatarLite::initSprites(bool is_change) {
         Serial.println("DeleteSprites");
         deleteSprites();
     }
-    Serial.println("initSprites");
+    Serial.printf("initSprites:%s\n", _filename);
     loadConfig(*_json_fs, _filename);
     _config.printAllParameters();
     _spcommon = _config.getSpriteCommonParameters();
@@ -210,6 +259,55 @@ void ImageAvatarLite::drawTest() {
     execDraw();
 }
 
+void ImageAvatarLite::addTask(TaskFunction_t f, const char* task_name, uint8_t task_priority, uint16_t stack_size) {
+    DriveContext * ctx = new DriveContext(this);
+    xTaskCreateUniversal(f,
+                         task_name,
+                         stack_size,
+                         ctx,
+                         task_priority,
+                         NULL,
+                         APP_CPU_NUM);
+}
+
+void ImageAvatarLite::start() {
+    DriveContext *ctx = new DriveContext(this);
+    xTaskCreateUniversal(drawLoop,
+                         "drawLoop",
+                         4096,
+                         ctx,
+                         2,
+                         &drawTaskHandle,
+                         APP_CPU_NUM); //tskNO_AFFINITY); // Core 1を指定しないと不安定
+//    xTaskCreateUniversal(breath,
+                         //"breath",
+                         //2048,
+                         //ctx,
+                         //6,
+                         //&breathTaskHandle,
+                         //APP_CPU_NUM);
+    xTaskCreateUniversal(blink,
+                         "blink",
+                         2048,
+                         ctx,
+                         7,
+                         &blinkTaskHandle,
+                         APP_CPU_NUM);
+
+}
+
+void ImageAvatarLite::changeAvatar(const char* filename, uint8_t expression) {
+    vTaskSuspend(blinkTaskHandle); // blinkを先に止めないと画像が乱れる。
+    vTaskSuspend(drawTaskHandle);
+    _mv.eye_l_ratio = 1.0f;
+    _mv.eye_r_ratio = 1.0f;
+    _filename = filename;
+    _expression = expression;
+    initSprites(true);
+    vTaskResume(drawTaskHandle);
+    vTaskResume(blinkTaskHandle);
+}
+
 void ImageAvatarLite::setBreath(float f) {
     _mv.breath = f;
 }
@@ -226,13 +324,26 @@ void ImageAvatarLite::setBlink(float ratio, bool is_right) {
     }
 }
 
-void ImageAvatarLite::setExpression(uint8_t expression) {
+void ImageAvatarLite::setExpression(const char* filename, uint8_t expression) {
     if (_expression == expression) return;
-
+    vTaskSuspend(blinkTaskHandle); // blinkを先に止めないと画像が乱れる。
+    vTaskSuspend(drawTaskHandle);
+    _mv.eye_l_ratio = 1.0f;
+    _mv.eye_r_ratio = 1.0f;
+    _filename = filename;
     _expression = expression;
     initSprites(true);
+    vTaskResume(drawTaskHandle);
+    vTaskResume(blinkTaskHandle);
+    if (_expression == expression) return;
 }
 
 void ImageAvatarLite::setMouthOpen(float ratio) {
     _mv.mouth_ratio = ratio;
 }
+
+uint8_t ImageAvatarLite::getExpressionMax() {
+    return _config.getExpressionMax();
+}
+
+} // namespace m5imageavatar
