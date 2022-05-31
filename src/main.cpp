@@ -147,7 +147,17 @@ void lipsync(void *args) {
 #ifdef USE_LED
       // buf[0]: LEFT
       // buf[1]: RIGHT
-      level_led(abs(buf[1])*10/INT16_MAX,abs(buf[0])*10/INT16_MAX);
+      switch(system_config.getLedLR()) {
+        case 1: // Left Only
+          level_led(abs(buf[0])*10/INT16_MAX,abs(buf[0])*10/INT16_MAX);
+          break;
+        case 2: // Right Only
+          level_led(abs(buf[1])*10/INT16_MAX,abs(buf[1])*10/INT16_MAX);
+          break;
+        default: // Stereo
+          level_led(abs(buf[1])*10/INT16_MAX,abs(buf[0])*10/INT16_MAX);
+          break;
+      }
 #endif
       memcpy(raw_data, buf, WAVE_SIZE * 2 * sizeof(int16_t));
       fft.exec(raw_data);
@@ -301,6 +311,7 @@ void setup() {
   delay(1000);
   turn_off_led();
 #endif
+
   auto_power_off_time = system_config.getAutoPowerOffTime();
   String avatar_filename = system_config.getAvatarJsonFilename(avatar_count);
   avatar.init(&gfx, avatar_filename.c_str(), false, 0);
@@ -402,6 +413,7 @@ void loop() {
       M5.Speaker.tone(800, 100);
     }
   }
+#ifndef ARDUINO_M5STACK_FIRE // FireはAxp192ではないのとI2Cが使えないので制御できません。
   if (M5.Power.Axp192.getACINVolatge() < 3.0f) {
     // USBからの給電が停止したとき
     // Serial.println("USBPowerUnPluged.");
@@ -418,5 +430,6 @@ void loop() {
       last_discharge_time = 0;
     }
   }
+#endif
   vTaskDelay(100);
 }
